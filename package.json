@@ -3,6 +3,16 @@
   "version": "0.0.1",
   "description": "Node.js client for the 365FarmNet Connect REST API",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fruchtfolge/365FarmNet.git"
+  },
+  "keywords": [
+    "365farmnet",
+    "api",
+    "connect",
+    "Agriculture"
+  ],
   "scripts": {
     "test": "node test/test.js"
   },
