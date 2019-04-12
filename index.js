@@ -65,7 +65,7 @@ module.exports = function(credentials) {
       }
       // load development or production public key
       const publicKey = await readFile(
-        `keys/365FarmNet_Connect-API_public_key_${pemKey}.pem`
+        `${__dirname}/keys/365FarmNet_Connect-API_public_key_${pemKey}.pem`
       )
       return publicKey
     } catch (e) {
