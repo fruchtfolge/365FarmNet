@@ -1,0 +1,21 @@
+{
+  "name": "365farmnet",
+  "version": "0.0.1",
+  "description": "Node.js client for the 365FarmNet Connect REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "author": "Christoph Pahmeyer <christoph.pahmeyer@uni-bonn.de>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "1.16.4"
+  }
+}
