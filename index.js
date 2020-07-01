@@ -9,7 +9,7 @@ const verify = util.promisify(jwt.verify)
 const sign = util.promisify(jwt.sign)
 const readFile = util.promisify(fs.readFile)
 
-module.exports = function(credentials) {
+module.exports = function (credentials) {
   if (!credentials || !credentials.partnerId || !credentials.secret)
     throw Error('No partner id or secret.')
 
@@ -29,10 +29,9 @@ module.exports = function(credentials) {
         params: options.params,
         data: options.data,
         headers: {
-          Authorization: `Bearer ${partnerToken}`
-        }
+          Authorization: `Bearer ${partnerToken}`,
+        },
       }
-
       const { data } = await axios(query)
       return data
     } catch (e) {
@@ -79,14 +78,14 @@ module.exports = function(credentials) {
       await verify(farmnettoken, publicKey)
       const payload = {
         con: farmnettoken,
-        iss: credentials.partnerId
+        iss: credentials.partnerId,
       }
       const options = {
         expiresIn: '1d',
         header: {
           ver: '0.1',
-          type: 'partner'
-        }
+          type: 'partner',
+        },
       }
       const partnerToken = await sign(payload, credentials.secret, options)
       return partnerToken

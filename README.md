@@ -51,14 +51,13 @@ It takes two arguments:
 | **options.method** *string*           | Default: 'GET'. Can be any HTTP request method valid for the given endpoint.         |
 
 ### Testing
-You need to put a `credentials.js` file in the root of the directory containing your 365FarmNet partnerId, secret, and a valid JWT token for testing.  
-Example:
+Fork this repo, then put a `credentials.js` file in the root directory with the following content.
+
 ```js
 // content of the credentials.js file, which needs to be placed at the root of this repo
 module.exports = {
   partnerId: 'your_partner_id',
-  secret: 'your_secret',
-  farmnettoken: 'paste_jwt_token_here'
+  secret: 'your_secret'
 }
 ```
 
@@ -66,6 +65,13 @@ Then run
 ```
 npm test
 ```
+
+This will spin up an *Express.js* server on http://localhost:3000/.
+
+Login to your account at https://devcon.365farmnet.com/, 
+click on the Developer tab -> Developer Playground.
+If all tests pass, you should see `All test passed!`, if not, check your console 😄
+
 
 ### Contribution
 Please feel free to submit an issue or a pull request!
