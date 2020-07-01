@@ -1,6 +1,6 @@
 {
   "name": "365farmnet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Node.js client for the 365FarmNet Connect REST API",
   "main": "index.js",
   "repository": {
