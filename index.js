@@ -14,29 +14,25 @@ module.exports = function (credentials) {
     throw Error('No partner id or secret.')
 
   async function request(endpoint, options) {
-    try {
-      // check if options were passed correctly
-      checkQuery(endpoint, options)
-      const partnerToken = await getPartnerToken(options.token)
-      const apiBase = getApiBase(options.token)
-      let method = 'GET'
-      if (options.method) method = options.method
-      const url = `${apiBase}/connect/v1/${endpoint}`
+    // check if options were passed correctly
+    checkQuery(endpoint, options)
+    const partnerToken = await getPartnerToken(options.token)
+    const apiBase = getApiBase(options.token)
+    let method = 'GET'
+    if (options.method) method = options.method
+    const url = `${apiBase}/connect/v1/${endpoint}`
 
-      const query = {
-        method,
-        url,
-        params: options.params,
-        data: options.data,
-        headers: {
-          Authorization: `Bearer ${partnerToken}`,
-        },
-      }
-      const { data } = await axios(query)
-      return data
-    } catch (e) {
-      throw Error(e)
+    const query = {
+      method,
+      url,
+      params: options.params,
+      data: options.data,
+      headers: {
+        Authorization: `Bearer ${partnerToken}`,
+      },
     }
+    const { data } = await axios(query)
+    return data
   }
 
   function checkQuery(endpoint, options) {
@@ -53,45 +49,37 @@ module.exports = function (credentials) {
   }
 
   async function getPublicKey(farmnettoken) {
-    try {
-      const apiBase = getApiBase(farmnettoken)
-      let pemKey = 'development'
-      if (
-        apiBase === 'https://connect.365farmnet.com' ||
-        apiBase === 'https://pp-connect.365farmnet.com'
-      ) {
-        pemKey = 'production'
-      }
-      // load development or production public key
-      const publicKey = await readFile(
-        `${__dirname}/keys/365FarmNet_Connect-API_public_key_${pemKey}.pem`
-      )
-      return publicKey
-    } catch (e) {
-      throw Error(e)
+    const apiBase = getApiBase(farmnettoken)
+    let pemKey = 'development'
+    if (
+      apiBase === 'https://connect.365farmnet.com' ||
+      apiBase === 'https://pp-connect.365farmnet.com'
+    ) {
+      pemKey = 'production'
     }
+    // load development or production public key
+    const publicKey = await readFile(
+      `${__dirname}/keys/365FarmNet_Connect-API_public_key_${pemKey}.pem`
+    )
+    return publicKey
   }
 
   async function getPartnerToken(farmnettoken) {
-    try {
-      const publicKey = await getPublicKey(farmnettoken)
-      await verify(farmnettoken, publicKey)
-      const payload = {
-        con: farmnettoken,
-        iss: credentials.partnerId,
-      }
-      const options = {
-        expiresIn: '1d',
-        header: {
-          ver: '0.1',
-          type: 'partner',
-        },
-      }
-      const partnerToken = await sign(payload, credentials.secret, options)
-      return partnerToken
-    } catch (e) {
-      throw Error(e)
+    const publicKey = await getPublicKey(farmnettoken)
+    await verify(farmnettoken, publicKey)
+    const payload = {
+      con: farmnettoken,
+      iss: credentials.partnerId,
     }
+    const options = {
+      expiresIn: '1d',
+      header: {
+        ver: '0.1',
+        type: 'partner',
+      },
+    }
+    const partnerToken = await sign(payload, credentials.secret, options)
+    return partnerToken
   }
 
   return request
