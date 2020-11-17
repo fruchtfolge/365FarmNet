@@ -36,7 +36,7 @@ app.get('/', async (req, res) => {
       },
       {
         name: 'Error',
-        message: 'Error: No 365farment API endpoint specified.',
+        message: 'No 365farment API endpoint specified.',
       }
     )
 
@@ -47,7 +47,7 @@ app.get('/', async (req, res) => {
       },
       {
         name: 'Error',
-        message: 'Error: No 365farmnet query options passed.',
+        message: 'No 365farmnet query options passed.',
       }
     )
 
@@ -58,7 +58,7 @@ app.get('/', async (req, res) => {
       },
       {
         name: 'Error',
-        message: 'Error: Error: Error: Invalid 365farmnet token.',
+        message: 'Invalid 365farmnet token.',
       }
     )
 
@@ -69,7 +69,7 @@ app.get('/', async (req, res) => {
       },
       {
         name: 'Error',
-        message: 'Error: No 365farmnet token passed.',
+        message: 'No 365farmnet token passed.',
       }
     )
     res.send('Passed all test!')
